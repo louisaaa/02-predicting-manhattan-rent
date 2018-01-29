@@ -131,11 +131,9 @@ def clean_data(data):
          'Mid-Downtown' #drop Mid-Downtown so we do not fall into the dummy variable trap (can calulate whether apartment is in Mid-Downtown if not in the other 3 areas)
         ], axis=1, inplace = True)
 
-	df.drop(['name', 'location', 'features', 'url', 'location2', 'features2', 'subway_station_distances'], axis=1, inplace = True)
-
 	df.dropna()
 
-	return df
+	df.to_csv('clean_data.csv')
 
 data = read_file('renthop_manhattan.json')
-df = clean_data(data)
+clean_data(data)
