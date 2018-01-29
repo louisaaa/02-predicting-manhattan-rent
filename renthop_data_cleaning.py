@@ -25,7 +25,7 @@ def clean_data(data):
 
 	## need to take into account studio and loft (set that to = 0 beds)
 	df['beds'] = df['beds'].map(lambda bed: bed.split()[0])
-	df['beds'] = df.apply(lambda bed: 0 if bed['beds'] == 'Studio' or 'Loft' else int(bed['beds']), axis = 1)
+	df['beds'] = df.apply(lambda bed: 0 if bed['beds'] == 'Studio' or bed['beds'] == 'Loft' or bed['beds'] == 'Share' else int(bed['beds']), axis = 1)
 
 	df['hop_score'] = df['hop_score'].map(lambda score: float(score.strip()))
 
