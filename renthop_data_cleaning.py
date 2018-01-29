@@ -131,7 +131,7 @@ def clean_data(data):
          'Mid-Downtown' #drop Mid-Downtown so we do not fall into the dummy variable trap (can calulate whether apartment is in Mid-Downtown if not in the other 3 areas)
         ], axis=1, inplace = True)
 
-	df.dropna()
+	df = df.dropna()
 
 	df.to_csv('clean_data.csv')
 
