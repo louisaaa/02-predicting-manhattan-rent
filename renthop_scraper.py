@@ -1,6 +1,5 @@
 import scrapy
 
-
 class RentSpider(scrapy.Spider):
     name = 'renthop'
 
@@ -15,9 +14,8 @@ class RentSpider(scrapy.Spider):
     ]
 
     def parse(self, response):
-        # Extract the links to the individual festival pages
+        # Extract the links to the individual rental pages
         rental_links = response.xpath('//a[contains(@id, "listing")]/@href').extract()
-        #rental_names = response.xpath('//a[contains(@id, "listing")]/text()').extract()
         
         for i in range(len(rental_links)):
             yield scrapy.Request(
@@ -35,8 +33,6 @@ class RentSpider(scrapy.Spider):
 
     def parse_rental(self, response):
         url = response.request.meta['url']
-
-        #name = response.request.meta['name']
         
         name = (
             response.xpath('//h1[@class="d-none d-lg-block overflow-ellipsis vitals-title"]/text()').extract())
@@ -48,7 +44,6 @@ class RentSpider(scrapy.Spider):
             response.xpath('//div[@class="text-right d-inline-block"]/div/text()').extract()[2])
 
         location = (
-            #why did i put this here? was not right onw: response.xpath('//div[@class="columns-2"]/div/text()').extract()[0])
             response.xpath('//div[@class="float-none float-lg-left text-center text-lg-left"]/div/text()').extract())
 
         beds = (
@@ -59,7 +54,6 @@ class RentSpider(scrapy.Spider):
 
         sq_ft = (
             response.xpath('.//tr/td/text()').extract()[2])
-        #or if there is no square feet listed, will be Immediate Move-In I think
 
         subway_station_distances = (
             response.xpath('//span[@style="color: black; font-weight: bold"]/text()').extract())
